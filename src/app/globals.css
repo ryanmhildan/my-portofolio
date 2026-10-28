@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Palette taken from the hero: its cream type (#E1E0CC) and near-black frame carry the page,
+   and the video's late-afternoon light gives one warm accent (amber) for section numbers and
+   highlights. Buttons use the cream/ink pair, never the amber. */
+:root {
+  --bg: #eceadd;
+  --surface: #f6f5ec;
+  --surface-2: #e2dfcf;
+  --line: #d3cfbc;
+  --fg: #14130f;
+  --fg-2: #48453a;
+  --muted: #5e5a4b;
+  --accent: #14130f;
+  --on-accent: #e1e0cc;
+  --accent-ink: #8a5410;
+  --accent-soft: #f1e3c8;
+  --card-shadow: none;
+  --liquid-hi: rgb(255 255 255 / 0.85);
+  --liquid-rim: rgb(138 84 16 / 0.5);
+  --liquid-ripple: rgb(20 19 15 / 0.1);
+  --liquid-ripple-inverse: rgb(225 224 204 / 0.28);
+  --glass-rim: rgb(255 255 255 / 0.7);
+  --glass-shadow: rgb(20 19 15 / 0.32);
+  --glass-drop: radial-gradient(120% 140% at 30% 0%, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0) 55%),
+    linear-gradient(rgb(255 255 255 / 0.45), rgb(255 255 255 / 0.45));
+  --glass-drop-ring: rgb(138 84 16 / 0.6);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0d0a;
+    --surface: #17160f;
+    --surface-2: #211f18;
+    --line: #2f2c22;
+    --fg: #e1e0cc;
+    --fg-2: #bfbda8;
+    --muted: #9a977f;
+    --accent: #e1e0cc;
+    --on-accent: #0e0d0a;
+    --accent-ink: #e0a458;
+    --accent-soft: #2c2416;
+    --card-shadow: none;
+    --liquid-hi: rgb(225 224 204 / 0.09);
+    --liquid-rim: rgb(224 164 88 / 0.6);
+    --liquid-ripple: rgb(225 224 204 / 0.14);
+    --liquid-ripple-inverse: rgb(14 13 10 / 0.2);
+  --glass-rim: rgb(225 224 204 / 0.12);
+  --glass-shadow: rgb(0 0 0 / 0.6);
+  --glass-drop: linear-gradient(rgb(225 224 204 / 0.12), rgb(225 224 204 / 0.12));
+  --glass-drop-ring: rgb(224 164 88 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e0d0a;
+  --surface: #17160f;
+  --surface-2: #211f18;
+  --line: #2f2c22;
+  --fg: #e1e0cc;
+  --fg-2: #bfbda8;
+  --muted: #9a977f;
+  --accent: #e1e0cc;
+  --on-accent: #0e0d0a;
+  --accent-ink: #e0a458;
+  --accent-soft: #2c2416;
+  --card-shadow: none;
+  --liquid-hi: rgb(225 224 204 / 0.09);
+  --liquid-rim: rgb(224 164 88 / 0.6);
+  --liquid-ripple: rgb(225 224 204 / 0.14);
+  --liquid-ripple-inverse: rgb(14 13 10 / 0.2);
+  --glass-rim: rgb(225 224 204 / 0.12);
+  --glass-shadow: rgb(0 0 0 / 0.6);
+  --glass-drop: linear-gradient(rgb(225 224 204 / 0.12), rgb(225 224 204 / 0.12));
+  --glass-drop-ring: rgb(224 164 88 / 0.6);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --shadow-card: var(--card-shadow);
+  --font-sans: var(--font-manrope);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Film grain for the hero video (see src/components/ui/prisma-hero.tsx). */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Side gutter shared by every section, taken from the hero's own content padding. */
+@utility px-page {
+  padding-inline: clamp(20px, 3.2vw, 48px);
+}
+
+/* Buttons wear the navbar's glass: the same tint, line, rim and shadow as the liquid navbar.
+   `glass-drop` is the navbar's active drop (brighter fill, amber ring) and marks the primary
+   action or the selected option. */
+.glass-pill,
+#beranda .sh-btn,
+#beranda .sh-txt {
+  color: var(--fg);
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow:
+    inset 0 1px 1px var(--glass-rim),
+    inset 0 0 0 1px var(--line),
+    0 12px 32px -14px var(--glass-shadow),
+    0 2px 6px rgb(20 19 15 / 0.06);
+}
+
+.glass-drop,
+#beranda .sh-btn {
+  background: var(--glass-drop), color-mix(in srgb, var(--surface) 62%, transparent);
+  box-shadow:
+    inset 0 1px 1px var(--glass-rim),
+    inset 0 -2px 6px rgb(224 164 88 / 0.18),
+    inset 0 0 0 1px var(--glass-drop-ring),
+    0 12px 32px -14px var(--glass-shadow),
+    0 2px 6px rgb(20 19 15 / 0.06);
+}
+
+/* Inside a glass group the drop sits on the group's glass, so it needs no shadow of its own. */
+.glass-drop-inner {
+  background: var(--glass-drop);
+  box-shadow: inset 0 1px 1px var(--glass-rim), inset 0 0 0 1px var(--glass-drop-ring);
+}
+
+#beranda .sh-txt {
+  height: 46px;
+  padding: 0 22px;
+  border-bottom: 0;
+  border-radius: 999px;
+}
+
+#beranda .sh-ctas {
+  gap: 10px;
+}
+
+/* Phones carry the site navbar at the bottom of the screen; keep the hero's buttons clear of it. */
+@media (max-width: 639px) {
+  #beranda .sh-content {
+    padding-bottom: 104px;
+  }
+}
+
+/* Liquid surfaces (driven by src/components/LiquidSurfaces.tsx). Surfaces stay solid; the water
+   is in how they answer the pointer: a soft light that follows it, a rim that catches it on
+   cards, a ripple and a springy press on buttons. */
+[data-liquid],
+#beranda .sh-btn,
+#beranda .sh-txt {
+  position: relative;
+  isolation: isolate;
+  --lo: 0;
+}
+
+[data-liquid="button"],
+#beranda .sh-btn,
+#beranda .sh-txt {
+  overflow: hidden;
+  transition-property: transform, background-color, color, border-color, opacity;
+  transition-duration: 0.55s;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-liquid="button"]:active,
+#beranda .sh-btn:active,
+#beranda .sh-txt:active {
+  transform: scale(0.95);
+  transition-duration: 0.12s;
+}
+
+[data-liquid]::before,
+#beranda .sh-btn::before,
+#beranda .sh-txt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle var(--lr, 140px) at var(--lx, 50%) var(--ly, 50%),
+    var(--liquid-hi),
+    transparent 70%
+  );
+  opacity: var(--lo);
+  transition: opacity 0.4s ease;
+}
+
+[data-liquid="card"] {
+  --lr: 320px;
+}
+
+/* The card's edge lights up nearest the pointer, like the meniscus of water against glass. */
+[data-liquid="card"]::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: radial-gradient(circle 220px at var(--lx, 50%) var(--ly, 50%), var(--liquid-rim), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: var(--lo);
+  transition: opacity 0.4s ease;
+}
+
+[data-liquid-tone="inverse"] {
+  --liquid-hi: rgb(255 255 255 / 0.22);
+  --liquid-ripple: var(--liquid-ripple-inverse);
+}
+
+.liquid-ripple {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: var(--liquid-ripple);
+  transform: translate(-50%, -50%) scale(0);
+  animation: liquid-ripple 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes liquid-ripple {
+  60% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-liquid="button"]:active,
+  #beranda .sh-btn:active,
+  #beranda .sh-txt:active {
+    transform: none;
+  }
+}
