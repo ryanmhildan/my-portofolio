@@ -20,13 +20,31 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
+// Absolute base for share links and og:image. Vercel sets the production domain at build time.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "https://my-portofolio-liart-delta.vercel.app";
+
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
+  const title = "Ryan Muhammad Hildan";
+  const description = getContent(lang).dict.metaDescription;
   return {
-    title: "Ryan Muhammad Hildan",
-    description: getContent(lang).dict.metaDescription,
-    alternates: { languages: { id: "/id", en: "/en", "x-default": "/en" } },
+    metadataBase: new URL(siteUrl),
+    title,
+    description,
+    alternates: { canonical: `/${lang}`, languages: { id: "/id", en: "/en", "x-default": "/en" } },
+    openGraph: {
+      type: "website",
+      siteName: title,
+      title,
+      description,
+      url: `/${lang}`,
+      locale: lang === "id" ? "id_ID" : "en_US",
+      alternateLocale: lang === "id" ? "en_US" : "id_ID",
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
