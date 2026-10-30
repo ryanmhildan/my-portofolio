@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Manrope } from "next/font/google";
+import { Instrument_Serif, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { LangProvider } from "@/components/LangProvider";
 import { getContent, hasLocale, locales } from "@/data/content";
 import "../globals.css";
 
-// Manrope: open, geometric-humanist forms that read friendly and technical at once, and a weight
-// range (200 to 800) wide enough to carry both headlines and body text in a single family.
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
+// Poppins is not a variable font on Google Fonts, so each weight the site uses is listed.
+const poppins = Poppins({ variable: "--font-poppins", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 // Italic accent face the sculpture hero sets its key phrase in.
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",
@@ -65,7 +64,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html
       lang={lang}
-      className={`${manrope.variable} ${instrumentSerif.variable} antialiased`}
+      className={`${poppins.variable} ${instrumentSerif.variable} antialiased`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

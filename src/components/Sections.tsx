@@ -12,7 +12,7 @@ export function Experience() {
 
   return (
     <section id="pengalaman" className="scroll-mt-24 px-page py-16 md:py-24">
-      <SectionHead index="02" eyebrow={dict.experience.eyebrow} title={dict.experience.title} />
+      <SectionHead eyebrow={dict.experience.eyebrow} title={dict.experience.title} />
 
       <ol data-liquid="card" className="divide-y divide-line rounded-[2rem] border border-line bg-surface">
         {experience.map((e, i) => (
@@ -39,7 +39,7 @@ export function About() {
 
   return (
     <section id="tentang" className="scroll-mt-24 px-page py-16 md:py-24">
-      <SectionHead index="03" eyebrow={dict.about.eyebrow} title={dict.nav.about} />
+      <SectionHead eyebrow={dict.about.eyebrow} title={dict.nav.about} />
 
       <Reveal className="max-w-3xl">
         <p className="text-2xl font-bold leading-snug tracking-[-0.035em] md:text-3xl">
@@ -70,7 +70,7 @@ export function Contact() {
 
   return (
     <section id="kontak" className="scroll-mt-24 px-page pb-8 pt-16 md:pt-24">
-      <SectionHead index="04" eyebrow={c.eyebrow} title={dict.nav.contact} />
+      <SectionHead eyebrow={c.eyebrow} title={dict.nav.contact} />
 
       <Reveal liquid className="rounded-[2rem] border border-line bg-surface p-6 sm:p-10 md:p-14">
         <h3 className="max-w-3xl text-3xl font-medium leading-tight tracking-[-0.05em] md:text-5xl">

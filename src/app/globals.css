@@ -93,7 +93,7 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --shadow-card: var(--card-shadow);
-  --font-sans: var(--font-manrope);
+  --font-sans: var(--font-poppins);
 }
 
 html {
@@ -109,8 +109,7 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-manrope), system-ui, sans-serif;
-  font-feature-settings: "ss01";
+  font-family: var(--font-poppins), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.25s ease, color 0.25s ease;
 }

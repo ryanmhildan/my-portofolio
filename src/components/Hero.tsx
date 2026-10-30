@@ -25,8 +25,8 @@ export function Hero() {
         topInset={88}
         showCredit={false}
         loadFonts={false}
-        headingFont="var(--font-manrope), system-ui, sans-serif"
-        bodyFont="var(--font-manrope), system-ui, sans-serif"
+        headingFont="var(--font-poppins), system-ui, sans-serif"
+        bodyFont="var(--font-poppins), system-ui, sans-serif"
         accentFont="var(--font-instrument), 'Times New Roman', serif"
         background={PAGE_BG.light}
         darkBackground={PAGE_BG.dark}

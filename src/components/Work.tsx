@@ -113,7 +113,7 @@ export function Work() {
 
   return (
     <section id="karya" className="scroll-mt-24 px-page py-16 md:py-24">
-      <SectionHead index="01" eyebrow={dict.work.eyebrow} title={dict.work.title}>
+      <SectionHead eyebrow={dict.work.eyebrow} title={dict.work.title}>
         <div role="group" aria-label={dict.work.filterLabel} className="glass-pill flex flex-wrap gap-0.5 self-start rounded-[1.5rem] p-1.5 md:self-auto">
           {filters.map((f) => (
             <button

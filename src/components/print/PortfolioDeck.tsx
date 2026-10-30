@@ -8,7 +8,7 @@ import { getContent, type Lang, type Project } from "@/data/content";
 const css = `
 @page { size: 1280px 720px; margin: 0; }
 html, body { background: #eceadd !important; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.deck { font-family: var(--font-manrope), system-ui, sans-serif; color: #14130f; }
+.deck { font-family: var(--font-poppins), system-ui, sans-serif; color: #14130f; }
 .slide { width: 1280px; height: 720px; box-sizing: border-box; padding: 64px 72px 56px; position: relative; overflow: hidden;
   background: #eceadd; break-after: page; display: flex; flex-direction: column; }
 .slide:last-child { break-after: auto; }
