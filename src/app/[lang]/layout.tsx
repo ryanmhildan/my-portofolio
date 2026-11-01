@@ -19,10 +19,8 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-// Absolute base for share links and og:image. Vercel sets the production domain at build time.
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "https://my-portofolio-liart-delta.vercel.app";
+// Absolute base for share links and og:image. The bare domain redirects to www, so this names www directly.
+const siteUrl = "https://www.ryanmhildan.my.id";
 
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
