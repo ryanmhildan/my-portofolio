@@ -7,7 +7,7 @@ import "../globals.css";
 
 // Poppins is not a variable font on Google Fonts, so each weight the site uses is listed.
 const poppins = Poppins({ variable: "--font-poppins", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-// Italic accent face the sculpture hero sets its key phrase in.
+// Italic accent face the hero sets its key phrase in.
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument",
   subsets: ["latin"],

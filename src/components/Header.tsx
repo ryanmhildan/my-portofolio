@@ -98,27 +98,33 @@ function applyTheme(theme: Theme) {
 function ThemeToggle() {
   const { dict } = useContent();
   const theme = useTheme();
+  const [toggled, setToggled] = useState(false);
   const label = theme === "dark" ? dict.themeToLight : dict.themeToDark;
 
   return (
     <button
       type="button"
-      onClick={() => applyTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => {
+        setToggled(true);
+        applyTheme(theme === "dark" ? "light" : "dark");
+      }}
       data-liquid="button"
       aria-label={label}
       title={label}
       className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full opacity-80 transition-opacity hover:opacity-100"
     >
-      <motion.svg
-        key={theme ?? "unset"}
+      {/* Shown once the theme is known; the spin plays on a toggle, not on page load, where the
+          entrance animation could stall at opacity 0 during hydration. */}
+      {theme && <motion.svg
+        key={theme}
         viewBox="0 0 20 20"
         className="size-[18px]"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.6"
         aria-hidden
-        initial={{ rotate: -45, opacity: 0 }}
-        animate={{ rotate: 0, opacity: theme ? 1 : 0 }}
+        initial={toggled ? { rotate: -45, opacity: 0 } : false}
+        animate={{ rotate: 0, opacity: 1 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
         {theme === "dark" ? (
@@ -133,7 +139,7 @@ function ThemeToggle() {
         ) : (
           <path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7Z" strokeLinejoin="round" />
         )}
-      </motion.svg>
+      </motion.svg>}
     </button>
   );
 }

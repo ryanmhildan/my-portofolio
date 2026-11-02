@@ -182,21 +182,34 @@ body {
   box-shadow: inset 0 1px 1px var(--glass-rim), inset 0 0 0 1px var(--glass-drop-ring);
 }
 
+#beranda .sh-btn,
 #beranda .sh-txt {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   height: 46px;
   padding: 0 22px;
-  border-bottom: 0;
   border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
 }
 
-#beranda .sh-ctas {
-  gap: 10px;
+#beranda .sh-btn svg,
+#beranda .sh-txt svg {
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* Phones carry the site navbar at the bottom of the screen; keep the hero's buttons clear of it. */
+#beranda .sh-btn:hover svg,
+#beranda .sh-txt:hover svg {
+  transform: translateX(3px);
+}
+
 @media (max-width: 639px) {
-  #beranda .sh-content {
-    padding-bottom: 104px;
+  #beranda .sh-btn,
+  #beranda .sh-txt {
+    height: 48px;
   }
 }
 
