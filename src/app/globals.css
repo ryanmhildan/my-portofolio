@@ -2,81 +2,80 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Palette taken from the hero: its cream type (#E1E0CC) and near-black frame carry the page,
-   and the video's late-afternoon light gives one warm accent (amber) for section numbers and
-   highlights. Buttons use the cream/ink pair, never the amber. */
+/* Black and white, with one cobalt accent for section numbers, links and highlights.
+   Buttons use the black/white pair, never the accent. Pairs are checked for WCAG AA. */
 :root {
-  --bg: #eceadd;
-  --surface: #f6f5ec;
-  --surface-2: #e2dfcf;
-  --line: #d3cfbc;
-  --fg: #14130f;
-  --fg-2: #48453a;
-  --muted: #5e5a4b;
-  --accent: #14130f;
-  --on-accent: #e1e0cc;
-  --accent-ink: #8a5410;
-  --accent-soft: #f1e3c8;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f0f0f0;
+  --line: #e2e2e2;
+  --fg: #0a0a0a;
+  --fg-2: #3d3d3d;
+  --muted: #616161;
+  --accent: #0a0a0a;
+  --on-accent: #fafafa;
+  --accent-ink: #2447e0;
+  --accent-soft: #e6ebfd;
   --card-shadow: none;
   --liquid-hi: rgb(255 255 255 / 0.85);
-  --liquid-rim: rgb(138 84 16 / 0.5);
-  --liquid-ripple: rgb(20 19 15 / 0.1);
-  --liquid-ripple-inverse: rgb(225 224 204 / 0.28);
+  --liquid-rim: rgb(36 71 224 / 0.5);
+  --liquid-ripple: rgb(10 10 10 / 0.1);
+  --liquid-ripple-inverse: rgb(242 242 242 / 0.28);
   --glass-rim: rgb(255 255 255 / 0.7);
-  --glass-shadow: rgb(20 19 15 / 0.32);
+  --glass-shadow: rgb(10 10 10 / 0.28);
   --glass-drop: radial-gradient(120% 140% at 30% 0%, rgb(255 255 255 / 0.75), rgb(255 255 255 / 0) 55%),
     linear-gradient(rgb(255 255 255 / 0.45), rgb(255 255 255 / 0.45));
-  --glass-drop-ring: rgb(138 84 16 / 0.6);
+  --glass-drop-ring: rgb(36 71 224 / 0.55);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e0d0a;
-    --surface: #17160f;
-    --surface-2: #211f18;
-    --line: #2f2c22;
-    --fg: #e1e0cc;
-    --fg-2: #bfbda8;
-    --muted: #9a977f;
-    --accent: #e1e0cc;
-    --on-accent: #0e0d0a;
-    --accent-ink: #e0a458;
-    --accent-soft: #2c2416;
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface-2: #1d1d1d;
+    --line: #2a2a2a;
+    --fg: #f2f2f2;
+    --fg-2: #c4c4c4;
+    --muted: #9a9a9a;
+    --accent: #f2f2f2;
+    --on-accent: #0a0a0a;
+    --accent-ink: #7c93ff;
+    --accent-soft: #161c33;
     --card-shadow: none;
-    --liquid-hi: rgb(225 224 204 / 0.09);
-    --liquid-rim: rgb(224 164 88 / 0.6);
-    --liquid-ripple: rgb(225 224 204 / 0.14);
-    --liquid-ripple-inverse: rgb(14 13 10 / 0.2);
-  --glass-rim: rgb(225 224 204 / 0.12);
-  --glass-shadow: rgb(0 0 0 / 0.6);
-  --glass-drop: linear-gradient(rgb(225 224 204 / 0.12), rgb(225 224 204 / 0.12));
-  --glass-drop-ring: rgb(224 164 88 / 0.6);
+    --liquid-hi: rgb(242 242 242 / 0.09);
+    --liquid-rim: rgb(124 147 255 / 0.6);
+    --liquid-ripple: rgb(242 242 242 / 0.14);
+    --liquid-ripple-inverse: rgb(10 10 10 / 0.2);
+    --glass-rim: rgb(242 242 242 / 0.12);
+    --glass-shadow: rgb(0 0 0 / 0.6);
+    --glass-drop: linear-gradient(rgb(242 242 242 / 0.12), rgb(242 242 242 / 0.12));
+    --glass-drop-ring: rgb(124 147 255 / 0.6);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0e0d0a;
-  --surface: #17160f;
-  --surface-2: #211f18;
-  --line: #2f2c22;
-  --fg: #e1e0cc;
-  --fg-2: #bfbda8;
-  --muted: #9a977f;
-  --accent: #e1e0cc;
-  --on-accent: #0e0d0a;
-  --accent-ink: #e0a458;
-  --accent-soft: #2c2416;
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1d1d1d;
+  --line: #2a2a2a;
+  --fg: #f2f2f2;
+  --fg-2: #c4c4c4;
+  --muted: #9a9a9a;
+  --accent: #f2f2f2;
+  --on-accent: #0a0a0a;
+  --accent-ink: #7c93ff;
+  --accent-soft: #161c33;
   --card-shadow: none;
-  --liquid-hi: rgb(225 224 204 / 0.09);
-  --liquid-rim: rgb(224 164 88 / 0.6);
-  --liquid-ripple: rgb(225 224 204 / 0.14);
-  --liquid-ripple-inverse: rgb(14 13 10 / 0.2);
-  --glass-rim: rgb(225 224 204 / 0.12);
+  --liquid-hi: rgb(242 242 242 / 0.09);
+  --liquid-rim: rgb(124 147 255 / 0.6);
+  --liquid-ripple: rgb(242 242 242 / 0.14);
+  --liquid-ripple-inverse: rgb(10 10 10 / 0.2);
+  --glass-rim: rgb(242 242 242 / 0.12);
   --glass-shadow: rgb(0 0 0 / 0.6);
-  --glass-drop: linear-gradient(rgb(225 224 204 / 0.12), rgb(225 224 204 / 0.12));
-  --glass-drop-ring: rgb(224 164 88 / 0.6);
+  --glass-drop: linear-gradient(rgb(242 242 242 / 0.12), rgb(242 242 242 / 0.12));
+  --glass-drop-ring: rgb(124 147 255 / 0.6);
   color-scheme: dark;
 }
 
@@ -162,7 +161,7 @@ body {
     inset 0 1px 1px var(--glass-rim),
     inset 0 0 0 1px var(--line),
     0 12px 32px -14px var(--glass-shadow),
-    0 2px 6px rgb(20 19 15 / 0.06);
+    0 2px 6px rgb(10 10 10 / 0.06);
 }
 
 .glass-drop,
@@ -170,10 +169,10 @@ body {
   background: var(--glass-drop), color-mix(in srgb, var(--surface) 62%, transparent);
   box-shadow:
     inset 0 1px 1px var(--glass-rim),
-    inset 0 -2px 6px rgb(224 164 88 / 0.18),
+    inset 0 -2px 6px rgb(36 71 224 / 0.12),
     inset 0 0 0 1px var(--glass-drop-ring),
     0 12px 32px -14px var(--glass-shadow),
-    0 2px 6px rgb(20 19 15 / 0.06);
+    0 2px 6px rgb(10 10 10 / 0.06);
 }
 
 /* Inside a glass group the drop sits on the group's glass, so it needs no shadow of its own. */

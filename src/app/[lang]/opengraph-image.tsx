@@ -21,14 +21,14 @@ export default async function Image({ params }: { params: Promise<{ lang: string
 
   return new ImageResponse(
     (
-      <div style={{ display: "flex", width: "100%", height: "100%", background: "#0e0d0a", color: "#eceadd", padding: 64, gap: 56 }}>
+      <div style={{ display: "flex", width: "100%", height: "100%", background: "#0a0a0a", color: "#fafafa", padding: 64, gap: 56 }}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", flex: 1 }}>
-          <div style={{ fontSize: 26, color: "#a39f8c" }}>{lang === "id" ? "Portofolio" : "Portfolio"}</div>
+          <div style={{ fontSize: 26, color: "#a3a3a3" }}>{lang === "id" ? "Portofolio" : "Portfolio"}</div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ fontSize: 84, fontWeight: 600, letterSpacing: -3, lineHeight: 1 }}>Ryan M Hildan</div>
-            <div style={{ marginTop: 28, fontSize: 34, lineHeight: 1.3, color: "#c9c5b2" }}>{dict.metaDescription}</div>
+            <div style={{ marginTop: 28, fontSize: 34, lineHeight: 1.3, color: "#cfcfcf" }}>{dict.metaDescription}</div>
           </div>
-          <div style={{ fontSize: 24, color: "#e7cf96" }}>Laravel · Next.js · Python · OpenCV · FastAPI</div>
+          <div style={{ fontSize: 24, color: "#7c93ff" }}>Laravel · Next.js · Python · OpenCV · FastAPI</div>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain img, not next/image */}
         <img src={mapSrc} alt="" width={420} height={502} style={{ objectFit: "cover", borderRadius: 24 }} />

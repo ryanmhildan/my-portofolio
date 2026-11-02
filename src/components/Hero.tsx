@@ -33,23 +33,33 @@ export function Hero() {
   const h = dict.hero;
 
   return (
-    <section id="beranda" className="relative isolate flex min-h-svh flex-col justify-end overflow-hidden bg-bg text-fg">
+    <section id="beranda" className="relative isolate flex min-h-svh flex-col overflow-hidden bg-bg text-fg">
       {/* The copy layer lets the pointer through, so the hill follows the cursor across the whole hero. */}
-      <div className="absolute inset-0 -z-10 text-muted opacity-70">
+      <div className="absolute inset-0 -z-10 text-muted opacity-60">
         <TopographyBackground />
       </div>
       {/* Fades the lines out behind the copy so the text keeps its contrast. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-3/4 bg-linear-to-t from-bg via-bg/85 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-linear-to-t from-bg via-bg/90 to-transparent" />
 
-      <div className="pointer-events-none grid gap-7 px-page pt-28 pb-[104px] sm:pb-[clamp(28px,3.4vw,52px)] lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:items-end lg:gap-[clamp(24px,4vw,72px)]">
-        <h1 className="text-[clamp(36px,12.5vw,60px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(40px,min(9.5vw,9vh),96px)] sm:leading-[0.92] lg:text-[clamp(40px,min(6.6vw,11.5vh),124px)]">
+      <div className="pointer-events-none flex flex-1 flex-col px-page pt-24 pb-[104px] sm:pt-28 sm:pb-10 lg:pb-12">
+        {/* Availability and location sit apart from the intro, where a recruiter scans first. */}
+        <div className="flex flex-wrap items-center justify-between gap-3 text-[13px] text-fg-2">
+          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5">
+            <span aria-hidden className="size-2 rounded-full bg-accent-ink" />
+            {h.statusValue}
+          </p>
+          <p className="rounded-full border border-line bg-surface px-3.5 py-1.5">{h.basedValue}</p>
+        </div>
+
+        <div className="min-h-16 flex-1" />
+
+        <h1 className="max-w-[16ch] text-[clamp(40px,12vw,64px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(48px,min(9vw,10vh),104px)] sm:leading-[0.92] lg:max-w-none lg:text-[clamp(56px,min(7vw,12vh),128px)]">
           {headline(h.headline, h.headlineAccent)}
         </h1>
-        <div className="max-w-[520px] lg:max-w-[400px] lg:justify-self-end lg:pb-[0.6em]">
-          <p className="mb-5 text-[15px] leading-normal tracking-[-0.01em] text-pretty text-fg-2 sm:mb-[26px] sm:text-[clamp(15px,1.1vw,17px)]">
-            {`${h.intro} ${h.statusValue}, ${h.basedValue}.`}
-          </p>
-          <div className="pointer-events-auto flex flex-wrap items-center gap-2.5">
+
+        <div className="mt-8 grid gap-6 border-t border-line pt-6 sm:mt-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+          <p className="max-w-[56ch] text-[15px] leading-relaxed tracking-[-0.01em] text-pretty text-fg-2 sm:text-base">{h.intro}</p>
+          <div className="pointer-events-auto flex flex-wrap items-center gap-2.5 lg:justify-end">
             <a className="sh-btn" href="mailto:ryanmhildan@gmail.com">
               {h.ctaEmail}
               <ArrowRight aria-hidden className="size-4" />
