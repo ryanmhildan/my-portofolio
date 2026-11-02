@@ -10,9 +10,10 @@
  * by guglielmogiannattasio.it
  *
  * Local changes: colors follow the page's theme tokens (glass, text, amber rim) instead of the
- * original blue water, `ariaLabel` prop, the font is inherited from the page, refraction support
- * is read through useSyncExternalStore so server and client markup agree, and refs are
- * synced in effects rather than during render.
+ * original blue water, `ariaLabel` prop, the font is inherited from the page, and refs are
+ * synced in effects rather than during render. The SVG refraction backdrop is gone: Chrome reran
+ * its turbulence filter on every scrolled frame, and the water only animates while something
+ * moves instead of looping for as long as the page is open.
  */
 
 import * as React from "react"
@@ -77,7 +78,6 @@ const NIMBUS_CSS = `
 .nimbus-glass{position:absolute;inset:0;border-radius:inherit;z-index:-2;overflow:hidden;background:var(--n-tint);
   -webkit-backdrop-filter:blur(12px) saturate(1.1);backdrop-filter:blur(12px) saturate(1.1);
   box-shadow:inset 0 1px 1px var(--n-rim),inset 0 0 0 1px var(--n-line),0 12px 32px -14px var(--n-shadow),0 2px 6px rgba(20,19,15,.06)}
-.nimbus-nav[data-refract="on"] .nimbus-glass{-webkit-backdrop-filter:url(#nimbus-refract) blur(2px) saturate(1.1);backdrop-filter:url(#nimbus-refract) blur(2px) saturate(1.1)}
 .nimbus-water{position:absolute;left:${-PAD}px;top:${-PAD}px;z-index:-1;pointer-events:none}
 .nimbus-nav[data-gl="off"] .nimbus-water{display:none}
 .nimbus-drop{display:none;position:absolute;top:6px;bottom:6px;left:0;border-radius:999px;z-index:-1;pointer-events:none;will-change:transform,width;
@@ -228,14 +228,6 @@ function initGL(canvas: HTMLCanvasElement) {
   return { gl, u }
 }
 
-function supportsRefraction() {
-  if (typeof window === "undefined" || typeof CSS === "undefined") return false
-  const ua = navigator.userAgent
-  return /Chrome\/|Chromium\/|Edg\//.test(ua) && !/Firefox\//.test(ua) && !!CSS.supports?.("backdrop-filter", "url(#a)")
-}
-
-const noopSubscribe = () => () => {}
-
 export function LiquidNavbar({
   items = DEFAULT_ITEMS,
   defaultActive = 0,
@@ -258,7 +250,6 @@ export function LiquidNavbar({
   const audio = React.useRef<AudioContext | null>(null)
   const st = React.useRef(makeState())
   const [gl, setGl] = React.useState<"on" | "off">("on")
-  const refract = React.useSyncExternalStore(noopSubscribe, supportsRefraction, () => false)
   const [fx, setFx] = React.useState({ i: -1, n: 0 })
   const dark = tone === "dark" ? 1 : 0
   const darkRef = React.useRef(dark)
@@ -386,8 +377,8 @@ export function LiquidNavbar({
       step(dt, now)
       draw()
       const busy = s.moving || s.rips.length || s.sats.length || s.mouse.s > 0.01
-      // ambient water keeps moving while visible; reduced-motion only animates on change
-      if (s.visible && (!s.reduce || busy)) s.raf = requestAnimationFrame(tick)
+      // runs only while the drop, droplets, ripples or cursor glow are still settling
+      if (s.visible && busy) s.raf = requestAnimationFrame(tick)
       else s.raf = 0
     }
     s.raf = requestAnimationFrame(tick)
@@ -545,7 +536,6 @@ export function LiquidNavbar({
       data-tone={tone}
       data-gl={gl}
       data-compact={compact === undefined ? undefined : String(compact)}
-      data-refract={refract ? "on" : "off"}
       aria-label={ariaLabel}
       onKeyDown={onKeyDown}
       onPointerMove={onMove}
@@ -554,13 +544,6 @@ export function LiquidNavbar({
       style={style}
     >
       <style dangerouslySetInnerHTML={{ __html: NIMBUS_CSS }} />
-      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-        <filter id="nimbus-refract" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.006 0.02" numOctaves="2" seed="7" result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="2" result="soft" />
-          <feDisplacementMap in="SourceGraphic" in2="soft" scale="60" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </svg>
       <span className="nimbus-glass" aria-hidden="true" />
       <canvas className="nimbus-water" ref={canvasRef} aria-hidden="true" />
       <span className="nimbus-drop" ref={dropRef} aria-hidden="true" />

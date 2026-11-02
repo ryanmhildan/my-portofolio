@@ -588,7 +588,8 @@ class LiquidEngine {
   /** One particle per material pixel of a grid laid over the image. */
   private buildParticles(img: HTMLImageElement) {
     const gl = this.gl
-    const baseGrid = this.lowPower ? 640 : 1000
+    // 800 across keeps the dots dense at hero size with ~35% fewer particles than 1000
+    const baseGrid = this.lowPower ? 560 : 800
     const gw = Math.round(baseGrid * Math.sqrt(clamp(this.opts.density, 0.15, 2)))
     const gh = Math.max(1, Math.round(gw / this.aspect))
     this.gridW = gw
@@ -717,9 +718,9 @@ class LiquidEngine {
     this.cssW = Math.max(1, cssW)
     this.cssH = Math.max(1, cssH)
     this.rect = rect
-    let dpr = Math.min(window.devicePixelRatio || 1, this.lowPower ? 1.5 : 2)
+    let dpr = Math.min(window.devicePixelRatio || 1, this.lowPower ? 1.25 : 1.5)
     const px = this.cssW * this.cssH * dpr * dpr
-    if (px > 4.5e6) dpr = Math.max(1, Math.sqrt(4.5e6 / (this.cssW * this.cssH)))
+    if (px > 3e6) dpr = Math.max(1, Math.sqrt(3e6 / (this.cssW * this.cssH)))
     const w = Math.round(this.cssW * dpr)
     const h = Math.round(this.cssH * dpr)
     if (this.canvas.width !== w || this.canvas.height !== h) {
@@ -1526,11 +1527,16 @@ export default function SculptureHero(props: SculptureHeroProps) {
     // the band moves when fonts load or the copy reflows
     if (navRef.current) ro.observe(navRef.current)
     if (contentRef.current) ro.observe(contentRef.current)
+    // returning to the tab must not restart the engine while the hero is scrolled away
+    let onScreen = true
     const io = new IntersectionObserver((entries) => {
-      for (const e of entries) engine?.setVisible(e.isIntersecting && !document.hidden)
+      for (const e of entries) {
+        onScreen = e.isIntersecting
+        engine?.setVisible(onScreen && !document.hidden)
+      }
     })
     io.observe(root)
-    const onVis = () => engine?.setVisible(!document.hidden)
+    const onVis = () => engine?.setVisible(onScreen && !document.hidden)
     document.addEventListener("visibilitychange", onVis)
     const onMq = () => engine?.setOptions({ reducedMotion: mq.matches })
     mq.addEventListener?.("change", onMq)
