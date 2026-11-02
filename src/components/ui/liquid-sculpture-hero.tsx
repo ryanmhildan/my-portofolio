@@ -445,6 +445,10 @@ class LiquidEngine {
   private last = 0
   private skip = 0
   private visible = true
+  // frame-time watch while the simulation runs: 1 = full detail, 0.7 = reduced
+  private detail = 1
+  private perfFrames = 0
+  private perfMs = 0
   private ready = false
   private destroyed = false
   private lost = false
@@ -589,7 +593,7 @@ class LiquidEngine {
   private buildParticles(img: HTMLImageElement) {
     const gl = this.gl
     // 800 across keeps the dots dense at hero size with ~35% fewer particles than 1000
-    const baseGrid = this.lowPower ? 560 : 800
+    const baseGrid = Math.round((this.lowPower ? 560 : 800) * this.detail)
     const gw = Math.round(baseGrid * Math.sqrt(clamp(this.opts.density, 0.15, 2)))
     const gh = Math.max(1, Math.round(gw / this.aspect))
     this.gridW = gw
@@ -718,7 +722,7 @@ class LiquidEngine {
     this.cssW = Math.max(1, cssW)
     this.cssH = Math.max(1, cssH)
     this.rect = rect
-    let dpr = Math.min(window.devicePixelRatio || 1, this.lowPower ? 1.25 : 1.5)
+    let dpr = Math.min(window.devicePixelRatio || 1, this.detail < 1 ? 1 : this.lowPower ? 1.25 : 1.5)
     const px = this.cssW * this.cssH * dpr * dpr
     if (px > 3e6) dpr = Math.max(1, Math.sqrt(3e6 / (this.cssW * this.cssH)))
     const w = Math.round(this.cssW * dpr)
@@ -835,6 +839,7 @@ class LiquidEngine {
       return
     }
     this.raf = requestAnimationFrame(this.frame)
+    if (!this.watchPerf(rawMs)) return
     // the field speeds up while the material is being stirred
     this.time += (dt * o.speed * (1 + this.flowing * 1.6)) / 60
     this.stepFlow(dt)
@@ -842,6 +847,36 @@ class LiquidEngine {
     this.burst = Math.max(0, this.burst - 0.1 * dt)
     this.draw()
     this.firstFrame()
+  }
+
+  /**
+   * Averages 45 simulated frames after a short warm-up. Below ~45fps the particle count and
+   * canvas resolution drop once; still too slow, the engine hands over to the static image.
+   * Returns false once it has given up.
+   */
+  private watchPerf(ms: number) {
+    this.perfFrames++
+    if (this.perfFrames <= 15) return true
+    this.perfMs += Math.min(ms, 100)
+    if (this.perfFrames < 60) return true
+    const avg = this.perfMs / 45
+    this.perfFrames = 0
+    this.perfMs = 0
+    if (avg < 22) return true
+    if (this.detail === 1 && this.lastImage) {
+      this.detail = 0.7
+      try {
+        this.buildParticles(this.lastImage)
+        this.resize(this.cssW, this.cssH, this.rect)
+        return true
+      } catch {
+        // fall through to the static image
+      }
+    }
+    this.stop()
+    this.destroyed = true
+    this.onFail()
+    return false
   }
 
   private firstFrame() {
