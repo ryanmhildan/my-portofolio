@@ -82,14 +82,14 @@ const NIMBUS_CSS = `
 .nimbus-nav[data-gl="off"] .nimbus-water{display:none}
 .nimbus-drop{display:none;position:absolute;top:6px;bottom:6px;left:0;border-radius:999px;z-index:-1;pointer-events:none;will-change:transform,width;
   background:radial-gradient(120% 140% at 30% 0%,rgba(255,255,255,.75),rgba(255,255,255,0) 55%),rgba(255,255,255,.45);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -2px 6px rgba(36,71,224,.12),inset 0 0 0 1px rgba(255,255,255,.55),0 6px 16px -6px rgba(10,10,10,.3)}
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -2px 6px rgba(10,10,10,.06),inset 0 0 0 1px rgba(255,255,255,.55),0 6px 16px -6px rgba(10,10,10,.3)}
 .nimbus-nav[data-tone="dark"] .nimbus-drop{background:rgba(242,242,242,.12);
-  box-shadow:inset 0 1px 1px rgba(242,242,242,.25),inset 0 0 0 1px rgba(124,147,255,.35),0 6px 16px -6px rgba(0,0,0,.6)}
+  box-shadow:inset 0 1px 1px rgba(242,242,242,.25),inset 0 0 0 1px rgba(242,242,242,.3),0 6px 16px -6px rgba(0,0,0,.6)}
 .nimbus-nav[data-gl="off"] .nimbus-drop{display:block}
 .nimbus-item{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;border:0;border-radius:999px;background:none;color:var(--n-fg-soft);
   font-family:inherit;font-weight:500;font-size:14px;line-height:1;letter-spacing:-.01em;text-decoration:none;cursor:pointer;transition:color .25s}
 .nimbus-item:hover,.nimbus-item[aria-current="page"]{color:var(--n-fg)}
-.nimbus-item:focus-visible{outline:2px solid var(--accent-ink,#2447e0);outline-offset:2px}
+.nimbus-item:focus-visible{outline:2px solid var(--accent-ink,#0a0a0a);outline-offset:2px}
 .nv-ico{position:relative;display:inline-flex;flex:none}
 .nv-ico svg{transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
 .nimbus-item[aria-current="page"] .nv-ico svg{transform:translateY(-1px) scale(1.08)}
@@ -113,7 +113,7 @@ const NIMBUS_CSS = `
 .nv-ico[data-fx="glow"] svg{animation:nvHop .8s cubic-bezier(.3,1.4,.5,1) both;transform-origin:50% 100%}
 @keyframes nvHop{0%{transform:none}30%{transform:translateY(-5px) scale(1.04,.96)}55%{transform:translateY(0) scale(1.12,.88)}75%{transform:translateY(-2px) scale(.98,1.04)}100%{transform:translateY(-1px) scale(1.08)}}
 .nv-ico[data-fx="glow"] .nv-door{animation:nvDoor 1.3s ease both}
-@keyframes nvDoor{0%{fill:transparent}30%{fill:#E6EBFD}100%{fill:rgba(124,147,255,.6)}}
+@keyframes nvDoor{0%{fill:transparent}30%{fill:#F0F0F0}100%{fill:rgba(97,97,97,.6)}}
 .nv-ico[data-fx="wave"] svg{animation:nvWave .9s ease-in-out both;transform-origin:50% 92%}
 @keyframes nvWave{0%{transform:none}20%{transform:rotate(-15deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}100%{transform:translateY(-1px) scale(1.08)}}
 .nimbus-nav[data-compact="true"] .nimbus-item{padding:0 13px}
@@ -147,7 +147,7 @@ void main(){
  float spec=pow(max(dot(reflect(-normalize(vec3(-.45,-.8,.85)),n),V),0.),70.);
  float spec2=pow(max(dot(reflect(-normalize(vec3(.6,.75,.7)),n),V),0.),22.)*.3;
  float fres=clamp((1.-n.z)*4.,0.,1.);
- vec3 accent=mix(vec3(.14,.28,.88),vec3(.49,.58,1.),uDark);
+ vec3 accent=mix(vec3(.25),vec3(.85),uDark);
  vec3 irid=mix(vec3(1.),accent,.35+.25*sin(fres*3.+p.x*.02+uTime*.4));
  float pm=smoothstep(1.,-1.,dp);float dm=smoothstep(1.,-1.,dd)*smoothstep(1.,-2.,dp);
  float sh=smoothstep(9.,-9.,dropD(p-vec2(0.,5.)))*(1.-dm)*pm*(.11+.07*uDark);

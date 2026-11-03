@@ -33,9 +33,9 @@ function ProjectCard({ project, index, wide }: { project: Project; index: number
       }`}
     >
       <div
-        className={`rounded-[1.5rem] bg-surface-2 p-3 sm:p-5 ${
-          wide ? `lg:order-2 lg:col-span-7 ${project.visual.kind === "image" && project.visual.extras ? "" : "lg:self-start"}` : ""
-        }`}
+        className={
+          wide ? `lg:order-2 lg:col-span-7 ${project.visual.kind === "image" && project.visual.extras ? "" : "lg:self-start"}` : undefined
+        }
       >
         <ProjectVisual project={project} withExtras={wide} />
       </div>
