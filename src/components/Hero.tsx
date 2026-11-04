@@ -6,14 +6,14 @@ import { PortfolioDownload } from "./Downloads";
 import { useContent } from "./LangProvider";
 import { TopographyBackground } from "./ui/backgrounds-topography";
 
-/** Splits the headline on its line breaks and sets the accent phrase in the italic face. */
+/** Splits the headline on its line breaks: the name goes in glass, the accent phrase in the italic face. */
 function headline(text: string, accent: string): ReactNode[] {
   return text.split("\n").map((line, i) => {
     const at = line.indexOf(accent);
     return (
       <span key={i} className="block">
         {at < 0 ? (
-          line
+          <span className={i === 0 ? "hero-glass" : undefined}>{line}</span>
         ) : (
           <>
             {line.slice(0, at)}
@@ -38,8 +38,8 @@ export function Hero() {
       <div className="absolute inset-0 -z-10 text-muted opacity-60">
         <TopographyBackground />
       </div>
-      {/* Fades the lines out behind the copy so the text keeps its contrast. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-linear-to-t from-bg via-bg/90 to-transparent" />
+      {/* Dims the lines behind the intro without hiding them, so they still run to the bottom edge. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-linear-to-t from-bg/70 via-bg/70 to-transparent sm:h-2/5" />
 
       <div className="pointer-events-none flex flex-1 flex-col px-page pt-24 pb-[104px] sm:pt-28 sm:pb-10 lg:pb-12">
         {/* Availability and location sit apart from the intro, where a recruiter scans first. */}
@@ -51,13 +51,13 @@ export function Hero() {
           <p className="rounded-full border border-line bg-surface px-3.5 py-1.5">{h.basedValue}</p>
         </div>
 
-        <div className="min-h-16 flex-1" />
+        <div className="flex flex-1 items-center justify-center py-10">
+          <h1 className="max-w-[16ch] text-center text-[clamp(40px,12vw,64px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(48px,min(9vw,10vh),104px)] sm:leading-[0.92] lg:max-w-none lg:text-[clamp(56px,min(7vw,12vh),128px)]">
+            {headline(h.headline, h.headlineAccent)}
+          </h1>
+        </div>
 
-        <h1 className="max-w-[16ch] text-[clamp(40px,12vw,64px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(48px,min(9vw,10vh),104px)] sm:leading-[0.92] lg:max-w-none lg:text-[clamp(56px,min(7vw,12vh),128px)]">
-          {headline(h.headline, h.headlineAccent)}
-        </h1>
-
-        <div className="mt-8 grid gap-6 border-t border-line pt-6 sm:mt-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
+        <div className="grid gap-6 border-t border-line pt-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
           <p className="max-w-[56ch] text-[15px] leading-relaxed tracking-[-0.01em] text-pretty text-fg-2 sm:text-base">{h.intro}</p>
           <div className="pointer-events-auto flex flex-wrap items-center gap-2.5 lg:justify-end">
             <a className="sh-btn" href="mailto:ryanmhildan@gmail.com">
