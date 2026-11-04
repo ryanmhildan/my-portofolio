@@ -1,19 +1,47 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { PortfolioDownload } from "./Downloads";
 import { useContent } from "./LangProvider";
 import { TopographyBackground } from "./ui/backgrounds-topography";
+import { LiquidText } from "./ui/liquid-text";
 
-/** Splits the headline on its line breaks: the name goes in glass, the accent phrase in the italic face. */
+/** The name as liquid type, sized from the h1 so it keeps the headline's scale at every width. */
+function HeroName({ text }: { text: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [fontSize, setFontSize] = useState(96);
+
+  useEffect(() => {
+    const read = () => {
+      if (ref.current) setFontSize(parseFloat(getComputedStyle(ref.current).fontSize));
+    };
+    read();
+    window.addEventListener("resize", read);
+    return () => window.removeEventListener("resize", read);
+  }, []);
+
+  return (
+    <span ref={ref} className="block">
+      <span className="sr-only">{text}</span>
+      {/* The canvas box is 1.6em tall to leave room for pulled beads; the margins take that back. */}
+      <span aria-hidden className="-my-[0.33em] block">
+        <LiquidText text={text} fontSize={fontSize} fontWeight={600} className="pointer-events-auto font-[family-name:var(--font-fredoka)]" />
+      </span>
+    </span>
+  );
+}
+
+/** Splits the headline on its line breaks: the name goes liquid, the accent phrase in the italic face. */
 function headline(text: string, accent: string): ReactNode[] {
   return text.split("\n").map((line, i) => {
     const at = line.indexOf(accent);
     return (
       <span key={i} className="block">
-        {at < 0 ? (
-          <span className={i === 0 ? "hero-glass" : undefined}>{line}</span>
+        {i === 0 ? (
+          <HeroName text={line} />
+        ) : at < 0 ? (
+          line
         ) : (
           <>
             {line.slice(0, at)}

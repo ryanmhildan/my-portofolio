@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Poppins } from "next/font/google";
+import { Fredoka, Instrument_Serif, Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import { LangProvider } from "@/components/LangProvider";
 import { getContent, hasLocale, locales } from "@/data/content";
@@ -14,6 +14,8 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
 });
+// Rounded face for the liquid name in the hero; soft terminals read like a poured surface.
+const fredoka = Fredoka({ variable: "--font-fredoka", subsets: ["latin"], weight: "600" });
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -62,7 +64,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html
       lang={lang}
-      className={`${poppins.variable} ${instrumentSerif.variable} antialiased`}
+      className={`${poppins.variable} ${instrumentSerif.variable} ${fredoka.variable} antialiased`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
