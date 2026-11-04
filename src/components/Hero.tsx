@@ -26,7 +26,7 @@ function HeroName({ text }: { text: string }) {
       <span className="sr-only">{text}</span>
       {/* The canvas box is 1.6em tall to leave room for pulled beads; the margins take that back. */}
       <span aria-hidden className="-my-[0.33em] block">
-        <LiquidText text={text} fontSize={fontSize} fontWeight={600} className="pointer-events-auto font-[family-name:var(--font-fredoka)]" />
+        <LiquidText text={text} fontSize={fontSize} fit={0.94} fontWeight={600} className="pointer-events-auto font-[family-name:var(--font-fredoka)]" />
       </span>
     </span>
   );
@@ -37,7 +37,7 @@ function headline(text: string, accent: string): ReactNode[] {
   return text.split("\n").map((line, i) => {
     const at = line.indexOf(accent);
     return (
-      <span key={i} className="block">
+      <span key={i} className={i === 0 ? "block" : "mt-3 block text-[0.44em] leading-[1.1] tracking-[-0.03em] sm:mt-4 lg:text-[0.38em]"}>
         {i === 0 ? (
           <HeroName text={line} />
         ) : at < 0 ? (
@@ -80,7 +80,7 @@ export function Hero() {
         </div>
 
         <div className="flex flex-1 items-center justify-center py-10">
-          <h1 className="max-w-[16ch] text-center text-[clamp(40px,12vw,64px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(48px,min(9vw,10vh),104px)] sm:leading-[0.92] lg:max-w-none lg:text-[clamp(56px,min(7vw,12vh),128px)]">
+          <h1 className="w-full text-center text-[clamp(44px,14vw,80px)] leading-[0.94] font-medium tracking-[-0.045em] text-balance sm:text-[clamp(64px,min(12vw,15vh),136px)] sm:leading-[0.92] lg:text-[clamp(80px,min(10vw,18vh),176px)]">
             {headline(h.headline, h.headlineAccent)}
           </h1>
         </div>

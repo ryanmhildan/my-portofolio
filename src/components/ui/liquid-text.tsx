@@ -43,6 +43,8 @@ export interface LiquidTextProps {
   tone?: BjorkTone;
   /** Upper bound for the font size in CSS px. The type shrinks to fit narrower containers. */
   fontSize?: number;
+  /** Widest share of the container the word may take, 0 to 1. Default 0.82. */
+  fit?: number;
   fontWeight?: number;
   fontFamily?: string;
   /** A slow drifting blob keeps the surface alive when nobody is pointing at it. Default true. */
@@ -154,6 +156,7 @@ function computeLayout(
   family: string,
   weight: number,
   maxFont: number,
+  fit: number,
 ): Layout | null {
   const ctx = getScratch();
   if (!ctx || width < 8) return null;
@@ -166,7 +169,7 @@ function computeLayout(
   };
   setFont(100);
   const w100 = Math.max(1, ctx.measureText(text).width);
-  const fontSize = Math.max(14, Math.min(maxFont, (width * 0.82 * 100) / w100));
+  const fontSize = Math.max(14, Math.min(maxFont, (width * fit * 100) / w100));
   setFont(fontSize);
   const m = ctx.measureText(text);
   const asc = m.actualBoundingBoxAscent || fontSize * 0.72;
@@ -697,6 +700,7 @@ export function LiquidText({
   trailLength = 8,
   tone,
   fontSize = 240,
+  fit = 0.82,
   fontWeight = 700,
   fontFamily,
   autoplay = true,
@@ -928,7 +932,7 @@ export function LiquidText({
     const fontSpec = `${fontWeight} 100px ${family}`;
     const run = () => {
       if (cancelled) return;
-      const lay = computeLayout(width, text, family, fontWeight, fontSize);
+      const lay = computeLayout(width, text, family, fontWeight, fontSize, fit);
       if (!lay) return;
       const field = buildField(lay, text);
       if (!field) return;
@@ -995,6 +999,7 @@ export function LiquidText({
     fontWeight,
     fontFamily,
     fontSize,
+    fit,
     fontsReady,
     frozen,
     reducedMotion,
