@@ -11,8 +11,8 @@ import { ease } from "./Reveal";
 import { SectionHead } from "./SectionHead";
 import { TechChips } from "./TechChips";
 
-// The thesis and RABmate are the two largest systems, so they get the full row; the rest pair up.
-const FEATURED = new Set(["rice-harvest", "rabmate"]);
+// The thesis, ApplyTrack, and RABmate are the largest systems, so they get the full row; the rest pair up.
+const FEATURED = new Set(["rice-harvest", "applytrack", "rabmate"]);
 
 function ProjectCard({ project, index, wide }: { project: Project; index: number; wide: boolean }) {
   const { dict } = useContent();

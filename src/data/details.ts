@@ -313,9 +313,9 @@ export const details: Record<string, DetailSource> = {
       shot("/projects/applytrack/resumes.png", 1440, 900,
         l("Halaman CV dengan response rate per versi CV", "CV page with a response rate per CV version"),
         l("Versi CV dan response rate masing-masing", "CV versions and their response rates")),
-      shot("/projects/applytrack/reminder-email.png", 760, 676,
-        l("Contoh email pengingat harian", "Sample daily reminder email"),
-        l("Email pengingat harian", "Daily reminder email")),
+      shot("/projects/applytrack/board.png", 1440, 900,
+        l("Board Kanban ApplyTrack dengan lima kolom status dan kartu lamaran berlogo job board", "ApplyTrack Kanban board with five status columns and application cards carrying job board logos"),
+        l("Board Kanban: geser kartu antar status", "Kanban board: drag cards between statuses")),
     ],
     note: l(
       "Paket Free, Plus, dan Pro sudah punya batas masing-masing, tapi pembayarannya belum dibuat. Saat ini paket hanya bisa diganti di mode development.",

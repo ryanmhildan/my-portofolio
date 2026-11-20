@@ -107,6 +107,53 @@ const projectSource: ProjectSource[] = [
     },
   },
   {
+    slug: "applytrack",
+    title: l("ApplyTrack", "ApplyTrack"),
+    kicker: l("Produk pribadi", "Personal product"),
+    year: "2026",
+    tracks: ["software"],
+    summary: l(
+      "Pelacak lamaran kerja pengganti spreadsheet. Setiap lamaran jadi kartu di board Kanban, setiap perubahan tercatat di timeline, dan dashboard menunjukkan job board mana yang paling sering membalas.",
+      "A job application tracker that replaces the spreadsheet. Each application is a card on a Kanban board, each change lands in a timeline, and the dashboard shows which job boards reply most often.",
+    ),
+    points: [
+      l(
+        "Tempel link lowongan, lalu perusahaan, posisi, lokasi, dan gaji terisi dari data JobPosting halamannya. Permintaan ke URL pengguna hanya boleh ke alamat publik, dicek ulang setelah redirect.",
+        "Paste a job link and the company, role, location, and salary fill in from the page's JobPosting data. Requests to user URLs may only reach public addresses, checked again after each redirect.",
+      ),
+      l(
+        "Board Kanban dengan update optimistis. Fungsi pemindah kartu yang sama berjalan di browser dan di dalam transaksi database, jadi urutan di layar selalu sama dengan yang tersimpan.",
+        "A Kanban board with optimistic updates. The same card-moving function runs in the browser and inside the database transaction, so the order on screen always matches what is stored.",
+      ),
+      l(
+        "Versi CV per lamaran dengan response rate per versi, dan pengingat email harian untuk interview dan follow-up.",
+        "A CV version per application with a response rate for each version, and a daily email reminder for interviews and follow-ups.",
+      ),
+      l(
+        "Login email atau Google (OAuth + PKCE), batas percobaan login yang disimpan di database, cek password bocor lewat Have I Been Pwned, dan keluar dari semua perangkat.",
+        "Email or Google sign-in (OAuth + PKCE), a failed-login limit stored in the database, a breached-password check through Have I Been Pwned, and sign-out from every device.",
+      ),
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS", "Playwright"],
+    facts: [
+      { value: "5", label: l("kolom status", "status columns") },
+      { value: "15", label: l("job board dikenali", "job boards recognised") },
+      { value: "ID / EN", label: l("dua bahasa", "two languages") },
+    ],
+    repos: [{ label: "applytrack", href: gh("applytrack") }],
+    live: "https://applytrack-eosin.vercel.app",
+    visual: {
+      kind: "image",
+      src: "/projects/applytrack/landing.png",
+      alt: l(
+        "Landing page ApplyTrack: judul Semua lamaran kerjamu, rapi di satu tempat, di samping pratinjau board dan pengingat interview",
+        "ApplyTrack landing page: the headline beside a preview of the board and an interview reminder",
+      ),
+      width: 1440,
+      height: 790,
+    },
+  },
+  {
     slug: "rabmate",
     title: l("RABmate AI", "RABmate AI"),
     kicker: l("Produk pribadi", "Personal product"),
@@ -147,53 +194,6 @@ const projectSource: ProjectSource[] = [
       alt: l("Dashboard RABmate AI berisi ringkasan proyek dan RAB", "RABmate AI dashboard with project and estimate summaries"),
       width: 800,
       height: 513,
-    },
-  },
-  {
-    slug: "applytrack",
-    title: l("ApplyTrack", "ApplyTrack"),
-    kicker: l("Produk pribadi", "Personal product"),
-    year: "2026",
-    tracks: ["software"],
-    summary: l(
-      "Pelacak lamaran kerja pengganti spreadsheet. Setiap lamaran jadi kartu di board Kanban, setiap perubahan tercatat di timeline, dan dashboard menunjukkan job board mana yang paling sering membalas.",
-      "A job application tracker that replaces the spreadsheet. Each application is a card on a Kanban board, each change lands in a timeline, and the dashboard shows which job boards reply most often.",
-    ),
-    points: [
-      l(
-        "Tempel link lowongan, lalu perusahaan, posisi, lokasi, dan gaji terisi dari data JobPosting halamannya. Permintaan ke URL pengguna hanya boleh ke alamat publik, dicek ulang setelah redirect.",
-        "Paste a job link and the company, role, location, and salary fill in from the page's JobPosting data. Requests to user URLs may only reach public addresses, checked again after each redirect.",
-      ),
-      l(
-        "Board Kanban dengan update optimistis. Fungsi pemindah kartu yang sama berjalan di browser dan di dalam transaksi database, jadi urutan di layar selalu sama dengan yang tersimpan.",
-        "A Kanban board with optimistic updates. The same card-moving function runs in the browser and inside the database transaction, so the order on screen always matches what is stored.",
-      ),
-      l(
-        "Versi CV per lamaran dengan response rate per versi, dan pengingat email harian untuk interview dan follow-up.",
-        "A CV version per application with a response rate for each version, and a daily email reminder for interviews and follow-ups.",
-      ),
-      l(
-        "Login email atau Google (OAuth + PKCE), batas percobaan login yang disimpan di database, cek password bocor lewat Have I Been Pwned, dan keluar dari semua perangkat.",
-        "Email or Google sign-in (OAuth + PKCE), a failed-login limit stored in the database, a breached-password check through Have I Been Pwned, and sign-out from every device.",
-      ),
-    ],
-    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS", "Playwright"],
-    facts: [
-      { value: "5", label: l("kolom status", "status columns") },
-      { value: "15", label: l("job board dikenali", "job boards recognised") },
-      { value: "ID / EN", label: l("dua bahasa", "two languages") },
-    ],
-    repos: [{ label: "applytrack", href: gh("applytrack") }],
-    live: "https://applytrack-eosin.vercel.app",
-    visual: {
-      kind: "image",
-      src: "/projects/applytrack/board.png",
-      alt: l(
-        "Board Kanban ApplyTrack dengan lima kolom status dan kartu lamaran berlogo job board",
-        "ApplyTrack Kanban board with five status columns and application cards carrying job board logos",
-      ),
-      width: 1440,
-      height: 900,
     },
   },
   {
