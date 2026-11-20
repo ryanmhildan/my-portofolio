@@ -105,7 +105,7 @@ export function Work() {
   const { dict, projects } = useContent();
   const [filter, setFilter] = useState<"all" | Track>("all");
   const list = filter === "all" ? projects : projects.filter((p) => p.tracks.includes(filter));
-  const filters: ("all" | Track)[] = ["all", "software", "ai"];
+  const filters: ("all" | Track)[] = ["all", "software", "ai", "skill"];
 
   // A lone half-width card would leave a hole in the grid, so an odd one out takes the full row.
   const regular = list.filter((p) => !FEATURED.has(p.slug));

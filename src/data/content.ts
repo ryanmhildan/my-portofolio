@@ -2,7 +2,7 @@ import { details, type DetailSource } from "./details";
 
 export const locales = ["id", "en"] as const;
 export type Lang = (typeof locales)[number];
-export type Track = "software" | "ai";
+export type Track = "software" | "ai" | "skill";
 
 export const hasLocale = (value: string): value is Lang => (locales as readonly string[]).includes(value);
 
@@ -150,6 +150,52 @@ const projectSource: ProjectSource[] = [
     },
   },
   {
+    slug: "applytrack",
+    title: l("ApplyTrack", "ApplyTrack"),
+    kicker: l("Produk pribadi", "Personal product"),
+    year: "2026",
+    tracks: ["software"],
+    summary: l(
+      "Pelacak lamaran kerja pengganti spreadsheet. Setiap lamaran jadi kartu di board Kanban, setiap perubahan tercatat di timeline, dan dashboard menunjukkan job board mana yang paling sering membalas.",
+      "A job application tracker that replaces the spreadsheet. Each application is a card on a Kanban board, each change lands in a timeline, and the dashboard shows which job boards reply most often.",
+    ),
+    points: [
+      l(
+        "Tempel link lowongan, lalu perusahaan, posisi, lokasi, dan gaji terisi dari data JobPosting halamannya. Permintaan ke URL pengguna hanya boleh ke alamat publik, dicek ulang setelah redirect.",
+        "Paste a job link and the company, role, location, and salary fill in from the page's JobPosting data. Requests to user URLs may only reach public addresses, checked again after each redirect.",
+      ),
+      l(
+        "Board Kanban dengan update optimistis. Fungsi pemindah kartu yang sama berjalan di browser dan di dalam transaksi database, jadi urutan di layar selalu sama dengan yang tersimpan.",
+        "A Kanban board with optimistic updates. The same card-moving function runs in the browser and inside the database transaction, so the order on screen always matches what is stored.",
+      ),
+      l(
+        "Versi CV per lamaran dengan response rate per versi, dan pengingat email harian untuk interview dan follow-up.",
+        "A CV version per application with a response rate for each version, and a daily email reminder for interviews and follow-ups.",
+      ),
+      l(
+        "Login email atau Google (OAuth + PKCE), batas percobaan login yang disimpan di database, cek password bocor lewat Have I Been Pwned, dan keluar dari semua perangkat.",
+        "Email or Google sign-in (OAuth + PKCE), a failed-login limit stored in the database, a breached-password check through Have I Been Pwned, and sign-out from every device.",
+      ),
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS", "Playwright"],
+    facts: [
+      { value: "5", label: l("kolom status", "status columns") },
+      { value: "15", label: l("job board dikenali", "job boards recognised") },
+      { value: "ID / EN", label: l("dua bahasa", "two languages") },
+    ],
+    repos: [{ label: "applytrack", href: gh("applytrack") }],
+    visual: {
+      kind: "image",
+      src: "/projects/applytrack/board.png",
+      alt: l(
+        "Board Kanban ApplyTrack dengan lima kolom status dan kartu lamaran berlogo job board",
+        "ApplyTrack Kanban board with five status columns and application cards carrying job board logos",
+      ),
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
     slug: "koperasi-pos",
     title: l("Koperasi POS", "Koperasi POS"),
     kicker: l("Magang, PT. Sinar Mulia Plasindo Lestari", "Internship, PT. Sinar Mulia Plasindo Lestari"),
@@ -218,6 +264,52 @@ const projectSource: ProjectSource[] = [
     ],
     repos: [{ label: "skin-cancer-classification", href: gh("skin-cancer-classification") }],
     visual: { kind: "svm" },
+  },
+  {
+    slug: "cartoon-3d-shorts",
+    title: l("Cartoon 3D Shorts", "Cartoon 3D Shorts"),
+    kicker: l("Skill Claude Code", "Claude Code skill"),
+    year: "2026",
+    tracks: ["skill"],
+    summary: l(
+      "Dua skill Claude Code yang mengubah ide cerita menjadi video Shorts animasi dengan narator berbahasa Indonesia. Setiap frame dirender di PC sendiri dengan three.js di dalam Remotion, bukan oleh generator video AI.",
+      "Two Claude Code skills that turn a story idea into an animated Shorts video with an Indonesian narrator. Every frame is rendered on my own PC with three.js inside Remotion, not by an AI video generator.",
+    ),
+    points: [
+      l(
+        "/generate-naskah meriset minimal dua sumber per topik dan menulis beberapa opsi naskah. /generate-vidio menjalankan sisanya, dari suara sampai MP4 1080×1920.",
+        "/generate-naskah researches at least two sources per topic and writes several script options. /generate-vidio runs the rest, from the voice to a 1080×1920 MP4.",
+      ),
+      l(
+        "Narasi ElevenLabs menyimpan waktu tiap kata. Caption per kata, potongan shot, dan efek suara mengikuti waktu itu.",
+        "The ElevenLabs narration stores the timing of every word. Word-by-word captions, shot cuts, and sound effects all follow that timing.",
+      ),
+      l(
+        "Satu kalimat jadi satu shot. Claude merender satu still per shot dan memeriksanya sebelum render final: benda kunci terlihat, tokoh tidak terpotong, wajah tidak tertutup caption.",
+        "One sentence becomes one shot. Claude renders a still per shot and checks it before the final render: the key object is visible, no character is cut off, no face sits under a caption.",
+      ),
+      l(
+        "Sains di setiap video wajib nyata dan bersumber. Ceritanya boleh fiksi, tapi tidak ada kejadian, tanggal, atau kutipan yang dikarang lalu disajikan sebagai fakta.",
+        "The science in every video has to be real and sourced. The story may be fiction, but no event, date, or quote is invented and presented as fact.",
+      ),
+    ],
+    stack: ["Claude Code", "Remotion", "three.js", "TypeScript", "Python", "ElevenLabs", "ffmpeg"],
+    facts: [
+      { value: "2", label: l("perintah", "commands") },
+      { value: "11", label: l("video jadi", "finished videos") },
+      { value: "55–65", label: l("detik per video", "seconds per video") },
+    ],
+    repos: [{ label: "cartoon-3d-shorts", href: gh("cartoon-3d-shorts") }],
+    visual: {
+      kind: "image",
+      src: "/projects/cartoon/sampul.jpg",
+      alt: l(
+        "Enam frame vertikal dari video buatan skill ini: kapal layar yang miring, tokoh kartun di dermaga dan pantai, kendi tanah liat berembun, masing-masing dengan caption per kata",
+        "Six vertical frames from videos made with these skills: a listing sailing ship, cartoon characters on a pier and a beach, a sweating clay jar, each with a word-by-word caption",
+      ),
+      width: 1840,
+      height: 533,
+    },
   },
   {
     slug: "monday-notch",
@@ -360,7 +452,7 @@ const ui = {
       title: "Karya",
       eyebrow: "Karya pilihan, 2024 sampai sekarang",
       filterLabel: "Saring proyek",
-      filters: { all: "Semua", software: "Software", ai: "AI & Computer Vision" },
+      filters: { all: "Semua", software: "Software", ai: "AI & Computer Vision", skill: "Claude Skill" },
       details: "Detail proyek",
       demo: "Demo langsung",
       newTab: "(tab baru)",
@@ -448,7 +540,7 @@ const ui = {
       title: "Work",
       eyebrow: "Selected work, 2024 to now",
       filterLabel: "Filter projects",
-      filters: { all: "All", software: "Software", ai: "AI & Computer Vision" },
+      filters: { all: "All", software: "Software", ai: "AI & Computer Vision", skill: "Claude Skill" },
       details: "Project details",
       demo: "Live demo",
       newTab: "(new tab)",

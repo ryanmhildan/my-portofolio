@@ -132,7 +132,12 @@ export function ProjectDetail({ slug }: { slug: string }) {
           <Reveal>
             <h2 className="text-4xl font-medium leading-[0.9] tracking-[-0.05em] md:text-5xl">{w.gallery}</h2>
           </Reveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
+          {/* Vertical video frames would each stand a screen tall in two columns, so a gallery of them packs tighter. */}
+          <div
+            className={`mt-8 grid gap-5 ${
+              d.gallery.every((g) => g.height > g.width) ? "grid-cols-2 md:grid-cols-3" : "md:grid-cols-2"
+            }`}
+          >
             {d.gallery.map((g, i) => (
               <Reveal key={g.src} liquid delay={(i % 2) * 0.06} className="rounded-[2rem] border border-line bg-surface p-3 sm:p-4">
                 <figure>

@@ -249,6 +249,137 @@ export const details: Record<string, DetailSource> = {
     ),
   },
 
+  applytrack: {
+    overview: [
+      l(
+        "ApplyTrack menggantikan spreadsheet lamaran kerja. Setiap lamaran menjadi kartu di board Kanban, setiap perubahan tercatat otomatis di timeline, dan dashboard menunjukkan berapa lamaran yang dibalas, berapa yang lanjut ke interview, dan mana yang perlu di-follow-up.",
+        "ApplyTrack replaces the job application spreadsheet. Each application becomes a card on a Kanban board, each change is logged in a timeline, and the dashboard shows how many applications got a reply, how many reached an interview, and which ones need a follow-up.",
+      ),
+      l(
+        "Logika bisnisnya ada di modul murni yang tidak mengimpor Next.js maupun Prisma, jadi bisa dites langsung. Semua mutasi data lewat Server Actions, dan setiap input diparse dengan Zod di server.",
+        "The business logic lives in pure modules that import neither Next.js nor Prisma, so they can be tested directly. Every data change goes through Server Actions, and every input is parsed with Zod on the server.",
+      ),
+    ],
+    sections: [
+      {
+        title: l("Mengelola lamaran", "Managing applications"),
+        items: [
+          l("Board Kanban lima kolom: Wishlist, Applied, Interview, Offer, Rejected. Bila server gagal, kartu kembali ke posisi semula.", "A five-column Kanban board: Wishlist, Applied, Interview, Offer, Rejected. If the server fails, the card goes back where it was."),
+          l("Di ponsel, kolom diganti tab status, dan kartu dipindah lewat tombol atau bottom sheet karena drag and drop tidak berjalan di layar sentuh.", "On a phone the columns become status tabs, and cards move through a button or a bottom sheet, since drag and drop does not work on touch screens."),
+          l("Impor dari link LinkedIn, Glints, Kalibrr, dan job board lain. JobStreet tidak bisa dibaca dari link, jadi teks halamannya cukup disalin-tempel dan dibaca di browser.", "Import from LinkedIn, Glints, Kalibrr, and other job board links. JobStreet cannot be read from a link, so its page text is pasted in and parsed in the browser."),
+          l("Bookmarklet opsional untuk situs yang memblokir impor dari server: membaca halaman yang sedang dibuka, lalu membuka form lamaran yang sudah terisi.", "An optional bookmarklet for sites that block server-side import: it reads the open page, then opens a pre-filled application form."),
+          l("CV dalam PDF (maks. 2 MB) dipilih per lamaran. Hanya file berawalan %PDF- yang diterima, dan unduhannya dikirim dengan CSP sandbox.", "CVs as PDFs (up to 2 MB) are picked per application. Only files starting with %PDF- are accepted, and downloads are served with a sandbox CSP."),
+        ],
+      },
+      {
+        title: l("Insight dan pengingat", "Insights and reminders"),
+        items: [
+          l("Dashboard berisi total lamaran, response rate, interview rate, jumlah offer, grafik per minggu, dan distribusi pipeline.", "The dashboard shows total applications, response rate, interview rate, offers, a weekly chart, and the pipeline split."),
+          l("Response rate, interview rate, dan offer per job board. Sumber dengan kurang dari 5 lamaran terkirim ditandai dan tidak dibandingkan.", "Response rate, interview rate, and offers per job board. Sources with fewer than 5 sent applications are flagged and left out of the comparison."),
+          l("Pengingat email harian sekitar pukul 07.00 WIB, hanya dikirim bila ada interview atau follow-up yang jatuh tempo, dengan link berhenti langganan satu klik.", "A daily email around 07:00 WIB, sent only when an interview or follow-up is due, with a one-click unsubscribe link."),
+        ],
+      },
+      {
+        title: l("Akun dan keamanan", "Accounts and security"),
+        items: [
+          l("Email dan password (bcrypt) atau Google dengan OAuth + PKCE, memakai sesi JWT di cookie httpOnly.", "Email and password (bcrypt) or Google with OAuth + PKCE, using a JWT session in an httpOnly cookie."),
+          l("Setelah 5 login gagal, email dikunci 15 menit, ditambah batas 20 kali gagal per IP. Penghitungnya disimpan di database supaya berlaku di banyak instance.", "After 5 failed logins an email is locked for 15 minutes, with a limit of 20 failures per IP. The counters live in the database so they hold across instances."),
+          l("Cek password bocor lewat Have I Been Pwned: hanya 5 karakter awal hash SHA-1 yang dikirim.", "A breached-password check through Have I Been Pwned: only the first 5 characters of the SHA-1 hash are sent."),
+          l("Setiap token membawa versi sesi pengguna. Menaikkan versi itu membatalkan semua sesi lama tanpa tabel sesi.", "Each token carries the user's session version. Bumping it revokes every old session without a session table."),
+        ],
+      },
+      {
+        title: l("Pengujian", "Testing"),
+        items: [
+          l("Unit test Vitest untuk statistik, aturan follow-up, urutan kartu, validasi, token, pembatasan login, impor lowongan, dan pengingat.", "Vitest unit tests for statistics, follow-up rules, card ordering, validation, tokens, login limits, job import, and reminders."),
+          l("Test end-to-end Playwright untuk alur nyata di browser, dari daftar sampai unggah CV, masing-masing dengan akun baru yang dihapus setelahnya.", "Playwright end-to-end tests for real browser flows, from sign-up to CV upload, each with a fresh account that is deleted afterwards."),
+          l("GitHub Actions menjalankan lint, typecheck, unit test, migrasi, build, dan test end-to-end dengan PostgreSQL 17 di setiap push ke main.", "GitHub Actions runs lint, typecheck, unit tests, migrations, build, and end-to-end tests on PostgreSQL 17 on every push to main."),
+        ],
+      },
+    ],
+    gallery: [
+      shot("/projects/applytrack/dashboard.png", 1440, 1912,
+        l("Dashboard ApplyTrack: KPI lamaran, grafik per minggu, pipeline, interview mendatang, dan pengingat follow-up", "ApplyTrack dashboard: application KPIs, weekly chart, pipeline, upcoming interviews, and follow-up reminders"),
+        l("Dashboard: KPI, grafik per minggu, dan follow-up yang jatuh tempo", "Dashboard: KPIs, a weekly chart, and due follow-ups")),
+      shot("/projects/applytrack/import.png", 1440, 1106,
+        l("Form lamaran baru yang terisi dari halaman JobStreet yang ditempel", "New application form filled in from a pasted JobStreet page"),
+        l("Impor: salin-tempel halaman JobStreet, form terisi sendiri", "Import: paste a JobStreet page and the form fills itself")),
+      shot("/projects/applytrack/application.png", 1440, 1080,
+        l("Detail lamaran dengan gaji, jadwal interview, dan timeline", "Application detail with salary, interview schedule, and timeline"),
+        l("Detail lamaran dengan timeline otomatis", "Application detail with an automatic timeline")),
+      shot("/projects/applytrack/insights.png", 1280, 712,
+        l("Response rate, interview rate, dan offer per job board", "Response rate, interview rate, and offers per job board"),
+        l("Job board mana yang paling sering membalas", "Which job boards reply most often")),
+      shot("/projects/applytrack/resumes.png", 1440, 900,
+        l("Halaman CV dengan response rate per versi CV", "CV page with a response rate per CV version"),
+        l("Versi CV dan response rate masing-masing", "CV versions and their response rates")),
+      shot("/projects/applytrack/reminder-email.png", 760, 676,
+        l("Contoh email pengingat harian", "Sample daily reminder email"),
+        l("Email pengingat harian", "Daily reminder email")),
+    ],
+    note: l(
+      "Paket Free, Plus, dan Pro sudah punya batas masing-masing, tapi pembayarannya belum dibuat. Saat ini paket hanya bisa diganti di mode development.",
+      "The Free, Plus, and Pro plans already have their own limits, but payment is not built yet. For now the plan can only be changed in development mode.",
+    ),
+  },
+
+  "cartoon-3d-shorts": {
+    overview: [
+      l(
+        "Dua perintah di Claude Code, satu video Shorts animasi: tokoh kartun 2D di dunia 3D bergaya lukisan, narator berbahasa Indonesia, caption per kata, musik, dan efek suara. Claude yang menulis cerita, mengecek fakta, membangun adegan, memeriksa hasilnya, lalu merender.",
+        "Two commands in Claude Code, one animated Shorts video: 2D cartoon characters in a painterly 3D world, an Indonesian narrator, word-by-word captions, music, and sound effects. Claude writes the story, checks the facts, builds the scenes, reviews the result, then renders.",
+      ),
+      l(
+        "Rumus ceritanya: cerita dulu, sains belakangan. Ada tokoh, ada situasi aneh, taruhannya naik, lalu di akhir terungkap mekanisme sains yang nyata.",
+        "The story formula: story first, science last. A character, an odd situation, rising stakes, and at the end a real scientific mechanism is revealed.",
+      ),
+      l(
+        "Pipeline look 3D dan contoh adegan dasarnya berasal dari mromidev/claude-animated-shorts (MIT). Yang saya tulis: skill naskah dan video berbahasa Indonesia, alat suara dan audio, serta sebelas video di repo.",
+        "The 3D look pipeline and its base scene example come from mromidev/claude-animated-shorts (MIT). What I wrote: the Indonesian script and video skills, the voice and audio tools, and the eleven videos in the repo.",
+      ),
+    ],
+    sections: [
+      {
+        title: l("Alur", "Pipeline"),
+        items: [
+          l("/generate-naskah menulis sampai 8 opsi naskah 120–150 kata, masing-masing dengan hook, skor bisa digambar, dan minimal dua sumber. Topik yang sudah dibuat dilewati.", "/generate-naskah writes up to 8 script options of 120–150 words, each with a hook, a drawability score, and at least two sources. Topics already made are skipped."),
+          l("Angka dan tahun ditulis dengan huruf supaya narator membacanya benar.", "Numbers and years are spelled out so the narrator reads them correctly."),
+          l("Suara dari ElevenLabs dengan waktu per kata. Musik dan 8–15 efek suara diletakkan tepat di kata kuncinya, lalu dicampur ke -14 LUFS. Hasil ElevenLabs di-cache, jadi menjalankan ulang tidak memakan kredit.", "The voice comes from ElevenLabs with per-word timing. Music and 8–15 sound effects land on their key words, then everything is mixed to -14 LUFS. ElevenLabs output is cached, so a rerun costs no credits."),
+          l("Cek still biasanya 3–5 putaran sebelum render. Render panjang dipecah per 400 frame dengan browser baru tiap bagian.", "The still check usually takes 3–5 rounds before rendering. Long renders are split into 400-frame chunks with a fresh browser for each."),
+          l("Keluaran: MP4 1080×1920 30 fps, dan upload.txt berisi ide judul, deskripsi, sumber, dan hashtag.", "Output: a 1080×1920 MP4 at 30 fps, plus an upload.txt with title ideas, a description, sources, and hashtags."),
+        ],
+      },
+      {
+        title: l("Aturan konten", "Content rules"),
+        items: [
+          l("Sains selalu nyata dengan minimal dua sumber, dan sumbernya ikut ditulis di deskripsi video.", "The science is always real with at least two sources, and those sources go into the video description."),
+          l("Cerita fiksi ditandai fiksi, sains nyata. Tidak ada tanggal, koran, atau kutipan tokoh nyata yang dikarang.", "Fictional stories are labelled fiction, real science. No dates, newspapers, or quotes from real people are invented."),
+          l("Tokoh, warna, dan desain dibuat sendiri. Model 3D dari Kenney (CC0).", "Characters, colours, and designs are original. 3D models come from Kenney (CC0)."),
+        ],
+      },
+    ],
+    gallery: [
+      shot("/projects/cartoon/kapal-vasa.jpg", 360, 640,
+        l("Frame video: awak kapal berbaris di dek kapal perang yang masih bersandar di pelabuhan", "Video frame: a crew lined up on the deck of a warship still moored in the harbour"),
+        l("Kapal Perang yang Kalah oleh Angin", "The Warship Beaten by the Wind")),
+      shot("/projects/cartoon/krakatau-suara.jpg", 360, 640,
+        l("Frame video: tokoh berteropong dengan gelembung pikiran 2D berisi kapal besar", "Video frame: a character with a spyglass and a 2D thought bubble showing a large ship"),
+        l("Suara Paling Keras dalam Sejarah Manusia", "The Loudest Sound in Human History")),
+      shot("/projects/cartoon/kendi-keringat.jpg", 360, 640,
+        l("Frame video: pori-pori tanah liat dan tetesan air dilihat lewat kaca pembesar", "Video frame: clay pores and water droplets seen through a magnifying glass"),
+        l("Kendi Bocor yang Bikin Air Tetap Sejuk", "The Leaky Jar That Keeps Water Cool")),
+      shot("/projects/cartoon/smong-simeulue.jpg", 360, 640,
+        l("Frame video: desa rumah panggung di tepi pantai Simeulue", "Video frame: a village of stilt houses on the Simeulue shore"),
+        l("Pulau yang Selamat Berkat Cerita Nenek", "The Island Saved by Grandma's Story")),
+      shot("/projects/cartoon/raja-es.jpg", 360, 640,
+        l("Frame video: dua tokoh di dermaga di antara balok-balok es", "Video frame: two characters on a dock among blocks of ice"),
+        l("Orang yang Jualan Es ke Negeri Tropis", "The Man Who Sold Ice to the Tropics")),
+      shot("/projects/cartoon/subak-wereng.jpg", 360, 640,
+        l("Frame video: tokoh wereng membawa piring di depan sawah", "Video frame: a planthopper character holding a plate in front of a rice field"),
+        l("Kenapa Petani Bali Menuruti Jadwal Pura", "Why Balinese Farmers Follow the Temple Calendar")),
+    ],
+  },
+
   "monday-notch": {
     overview: [
       l(
