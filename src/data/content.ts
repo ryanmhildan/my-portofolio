@@ -184,6 +184,7 @@ const projectSource: ProjectSource[] = [
       { value: "ID / EN", label: l("dua bahasa", "two languages") },
     ],
     repos: [{ label: "applytrack", href: gh("applytrack") }],
+    live: "https://applytrack-eosin.vercel.app",
     visual: {
       kind: "image",
       src: "/projects/applytrack/board.png",
