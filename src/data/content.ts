@@ -87,23 +87,6 @@ const projectSource: ProjectSource[] = [
       ),
       width: 1600,
       height: 741,
-      extras: [
-        {
-          src: "/projects/rice/api-orthophoto.jpg",
-          alt: l("Orthophoto sawah hasil stitching foto drone", "Paddy orthophoto stitched from drone photos"),
-          width: 1200,
-          height: 1040,
-        },
-        {
-          src: "/projects/rice/api-klasifikasi.jpg",
-          alt: l(
-            "Orthophoto yang sama dengan overlay kuning pada padi matang dan hijau pada padi belum matang",
-            "The same orthophoto with yellow over ripe rice and green over unripe rice",
-          ),
-          width: 1200,
-          height: 1040,
-        },
-      ],
     },
   },
   {
