@@ -109,15 +109,19 @@ const projectSource: ProjectSource[] = [
         "A Kanban board with optimistic updates. The same card-moving function runs in the browser and inside the database transaction, so the order on screen always matches what is stored.",
       ),
       l(
-        "Versi CV per lamaran dengan response rate per versi, dan pengingat email harian untuk interview dan follow-up.",
-        "A CV version per application with a response rate for each version, and a daily email reminder for interviews and follow-ups.",
+        "JobFinder dan analisis CV: lowongan contoh disaring per provinsi, gaji, dan level, lalu diberi skor kecocokan skill dari CV. Email dan nomor HP disensor sebelum teks CV diproses.",
+        "JobFinder and CV analysis: sample job listings filtered by province, salary, and level, each scored against the skills in a CV. Emails and phone numbers are masked before the CV text is processed.",
+      ),
+      l(
+        "Impor CSV dari Excel atau Google Sheets dengan kolom dan status yang dikenali dalam dua bahasa, ekspor yang aman dari CSV injection, kalender interview dengan file .ics, dan zona waktu per pengguna.",
+        "CSV import from Excel or Google Sheets with columns and statuses recognised in two languages, an export safe from CSV injection, an interview calendar with .ics files, and a time zone per user.",
       ),
       l(
         "Login email atau Google (OAuth + PKCE), batas percobaan login yang disimpan di database, cek password bocor lewat Have I Been Pwned, dan keluar dari semua perangkat.",
         "Email or Google sign-in (OAuth + PKCE), a failed-login limit stored in the database, a breached-password check through Have I Been Pwned, and sign-out from every device.",
       ),
     ],
-    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS", "Playwright"],
+    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS", "Gemini API", "Playwright"],
     facts: [
       { value: "5", label: l("kolom status", "status columns") },
       { value: "15", label: l("job board dikenali", "job boards recognised") },
@@ -129,7 +133,7 @@ const projectSource: ProjectSource[] = [
       kind: "image",
       src: "/projects/applytrack/landing.png",
       alt: l(
-        "Landing page ApplyTrack: judul Semua lamaran kerjamu, rapi di satu tempat, di samping pratinjau board dan pengingat interview",
+        "Landing page ApplyTrack: judul All your job applications, tidy in one place, di samping pratinjau board dan pengingat interview",
         "ApplyTrack landing page: the headline beside a preview of the board and an interview reminder",
       ),
       width: 1440,
@@ -177,6 +181,98 @@ const projectSource: ProjectSource[] = [
       alt: l("Dashboard RABmate AI berisi ringkasan proyek dan RAB", "RABmate AI dashboard with project and estimate summaries"),
       width: 800,
       height: 513,
+    },
+  },
+  {
+    slug: "rab-mate",
+    title: l("RAB Mate", "RAB Mate"),
+    kicker: l("Produk pribadi", "Personal product"),
+    year: "2026",
+    tracks: ["software"],
+    summary: l(
+      "Aplikasi web untuk kontraktor dan jasa interior. RAB jadi satu-satunya sumber data: invoice per termin dan BAST diturunkan darinya, lalu tercetak di A4 dengan kop, cap, dan tanda tangan perusahaan masing-masing.",
+      "A web app for contractors and interior firms. The cost estimate (RAB) is the single source of data: invoices per payment term and handover reports (BAST) are derived from it, then printed on A4 with each company's own letterhead, stamp, and signature.",
+    ),
+    points: [
+      l(
+        "RAB bertingkat per kelompok pekerjaan. Subtotal, diskon, PPN, total, dan terbilang dihitung di satu modul, jadi angka di layar dan di dokumen cetak tidak pernah berbeda.",
+        "A tiered RAB grouped by work package. Subtotal, discount, VAT, total, and the amount in words are computed in one module, so the screen and the printed document never disagree.",
+      ),
+      l(
+        "Invoice dibuat dari persentase RAB (misalnya DP 30%), dari salinan semua item, atau kosong, dengan status Draft, Terkirim, Lunas, dan Batal.",
+        "An invoice starts from a percentage of the RAB (a 30% deposit, say), a copy of every item, or a blank page, with Draft, Sent, Paid, and Cancelled statuses.",
+      ),
+      l(
+        "Kop, logo, cap, dan tanda tangan diunggah sekali, lalu bisa dinyalakan atau dimatikan saat mencetak. Dokumen tetap hitam di atas putih walau aplikasi dalam mode gelap.",
+        "The letterhead, logo, stamp, and signature are uploaded once, then switched on or off when printing. Documents stay black on white even when the app is in dark mode.",
+      ),
+      l(
+        "Setiap akun terikat ke satu perusahaan. Setiap Server Action memeriksa companyId dari sesi, bukan dari input.",
+        "Each account belongs to one company. Every Server Action checks the companyId from the session, never from the input.",
+      ),
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL", "Prisma 7", "Zod", "Tailwind CSS"],
+    facts: [
+      { value: "3", label: l("dokumen dari 1 RAB", "documents from 1 RAB") },
+      { value: "4", label: l("status invoice", "invoice statuses") },
+      { value: "A4", label: l("siap cetak dan PDF", "ready to print or PDF") },
+    ],
+    repos: [{ label: "rab-mate", href: gh("rab-mate") }],
+    visual: {
+      kind: "image",
+      src: "/projects/rab-mate/landing.png",
+      alt: l(
+        "Landing page RAB Mate: judul Buat RAB, invoice, dan BAST tanpa ribet hitung ulang, dengan tombol Coba gratis",
+        "RAB Mate landing page: a headline about making RABs, invoices, and BASTs without recalculating, with a free trial button",
+      ),
+      width: 1440,
+      height: 900,
+    },
+  },
+  {
+    slug: "pdf-mate",
+    title: l("PDF Mate", "PDF Mate"),
+    kicker: l("Produk pribadi", "Personal product"),
+    year: "2026",
+    tracks: ["software"],
+    summary: l(
+      "Alat PDF di browser: gabung, pisah, dan edit tanpa daftar dan tanpa watermark. Semua pemrosesan terjadi di perangkat pengguna, jadi file tidak pernah diunggah ke server.",
+      "PDF tools in the browser: merge, split, and edit with no sign-up and no watermark. All processing happens on the user's device, so files are never uploaded to a server.",
+    ),
+    points: [
+      l(
+        "Gabung hingga 20 PDF dengan thumbnail dan urutan yang bisa diatur lewat drag and drop atau keyboard. File rusak atau terkunci kata sandi ditandai dan mengunci tombol gabung.",
+        "Merge up to 20 PDFs with thumbnails and an order set by drag and drop or the keyboard. Broken or password-locked files are flagged and block the merge button.",
+      ),
+      l(
+        "Pisah per rentang (1-3, 5, 8-10), setiap N halaman, atau dengan memilih halaman. Input yang salah langsung diberi pesan yang jelas, dan hasil banyak file diunduh sebagai ZIP.",
+        "Split by range (1-3, 5, 8-10), every N pages, or by picking pages. Bad input gets a clear message right away, and multi-file results download as a ZIP.",
+      ),
+      l(
+        "Editor overlay dengan sembilan alat, undo/redo, dan shortcut keyboard. Posisi objek tetap tepat di halaman yang diputar 90°, 180°, atau 270°.",
+        "An overlay editor with nine tools, undo/redo, and keyboard shortcuts. Objects land in the right place even on pages rotated 90°, 180°, or 270°.",
+      ),
+      l(
+        "Thumbnail hanya dirender saat mendekati layar, satu per satu lewat antrean, supaya dokumen panjang tetap mulus di-scroll.",
+        "Thumbnails render only as they near the screen, one at a time through a queue, so long documents still scroll smoothly.",
+      ),
+    ],
+    stack: ["Next.js 16", "React 19", "TypeScript", "pdf.js", "pdf-lib", "fflate", "Tailwind CSS", "Motion"],
+    facts: [
+      { value: "0", label: l("file diunggah ke server", "files uploaded to a server") },
+      { value: "20", label: l("PDF per gabungan", "PDFs per merge") },
+      { value: "9", label: l("alat editor", "editor tools") },
+    ],
+    repos: [{ label: "pdf-mate", href: gh("pdf-mate") }],
+    visual: {
+      kind: "image",
+      src: "/projects/pdf-mate/landing.png",
+      alt: l(
+        "Landing page PDF Mate: judul Semua alat PDF-mu, satu tempat, di samping demo Gabung PDF dengan tiga file",
+        "PDF Mate landing page: the headline beside a Merge PDF demo with three files",
+      ),
+      width: 2160,
+      height: 1350,
     },
   },
   {
